@@ -5,6 +5,7 @@ ENV APP_CONFIG_FILE=$APP_COFNIG_FILE
 WORKDIR /pybo
 RUN pip install --no-cache-dir -r requirements.txt
 RUN chmod +x /pybo/start_app.sh
-EXPOSE 8081
+EXPOSE 5000
 # CMD ["uvicorn", "app:create_app", "--host", "0.0.0.0", "--port", "8081"]
-ENTRYPOINT  ["/bin/bash", "/pybo/start_app.sh"]
+# ENTRYPOINT  ["flask", "run", "--host", "0.0.0.0"]
+ENTRYPOINT ["gunicorn", "--bind", "0:5000", "app:create_app"]
